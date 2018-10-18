@@ -1,20 +1,23 @@
-name: node-pg-test
+name: node 
 type: "nodejs:10"
 
 dependencies:
   nodejs:
     sequelize-cli: "^5.1.0"
 
-relationship:
+relationships:
   database: "mydatabase:postgresql"
 
 web:
   commands:
-    start: "npm start"
+    start: "sequelize db:migrate && node bin/www"
 
 hooks:
   build: |
     npm install
-    sequelize db:migrate
+
+variables:
+  env:
+    NODE_ENV: 'production'
 
 disk: 512
